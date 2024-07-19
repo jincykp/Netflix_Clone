@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_s/commom/utils.dart';
@@ -17,15 +18,27 @@ class CustomCarouselSlider extends StatelessWidget {
       child: CarouselSlider.builder(
         itemCount: data.results.length,
         itemBuilder: (BuildContext context, int index, int realIndex) {
-          var backdropPath = data.results[index].backdropPath;
-          var url = backdropPath != null
-              ? "https://image.tmdb.org/t/p/w500$backdropPath"
-              : "https://via.placeholder.com/500x281?text=No+Image";
+          String? backdropPath = data.results[index].posterPath;
+          log(backdropPath);
+          // var url = backdropPath != null
+          //     ? "https://image.tmdb.org/t/p/w500$backdropPath"
+          //     : "https://via.placeholder.com/500x281?text=No+Image";
 
           return GestureDetector(
               child: Column(
             children: [
-              Expanded(child: CachedNetworkImage(imageUrl: "$imageUrl$url")),
+              Expanded(
+                child: Image.network(
+                  "https://image.tmdb.org/t/p/w500${data.results[index].backdropPath}",
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(
+                      Icons.broken_image,
+                      color: Colors.white,
+                    );
+                  },
+                ),
+              ),
               const SizedBox(
                 height: 20,
               ),
