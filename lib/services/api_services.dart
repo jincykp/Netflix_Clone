@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:netflix_clone_s/commom/utils.dart';
+import 'package:netflix_clone_s/models/movie_detailed_model.dart';
 import 'package:netflix_clone_s/models/movie_recommendation_model.dart';
 import 'package:netflix_clone_s/models/nowPlaying_model.dart';
 import 'package:netflix_clone_s/models/search_model.dart';
@@ -124,5 +125,18 @@ class ApiServices {
       }
     }
     throw 'Faled to load popular movies';
+  }
+
+  Future<MovieDetailedModel> getMovieDetail(int movieId) async {
+    endPoint = "movie/$movieId";
+    final url = "$baseUrl$endPoint$key";
+    print("search url =$url");
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      log('search success');
+      return MovieDetailedModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception("Failed to load movie details ");
   }
 }

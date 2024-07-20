@@ -200,6 +200,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix_clone_s/commom/utils.dart';
 import 'package:netflix_clone_s/models/movie_recommendation_model.dart';
 import 'package:netflix_clone_s/models/search_model.dart';
+import 'package:netflix_clone_s/screens/movie_detail_screen.dart';
 import 'package:netflix_clone_s/services/api_services.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -300,31 +301,42 @@ class _SearchScreenState extends State<SearchScreen> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
-                                    return Container(
-                                      height: 150,
-                                      padding: const EdgeInsets.all(5),
-                                      child: Row(
-                                        children: [
-                                          Image.network(
-                                            "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return const Icon(
-                                                Icons.broken_image,
-                                                color: Colors.white,
-                                              );
-                                            },
-                                          ),
-                                          const SizedBox(width: 20),
-                                          Expanded(
-                                            child: Text(
-                                              data[index].title,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MovieDetailScreen(
+                                                      movieId: data[index].id,
+                                                    )));
+                                      },
+                                      child: Container(
+                                        height: 150,
+                                        padding: const EdgeInsets.all(5),
+                                        child: Row(
+                                          children: [
+                                            Image.network(
+                                              "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
+                                              fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return const Icon(
+                                                  Icons.broken_image,
+                                                  color: Colors.white,
+                                                );
+                                              },
                                             ),
-                                          ),
-                                        ],
+                                            const SizedBox(width: 20),
+                                            Expanded(
+                                              child: Text(
+                                                data[index].title,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },
@@ -367,7 +379,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                       searchModel!.results[index].originalTitle,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 14),
+                                      style: const TextStyle(
+                                          fontSize: 14, color: Colors.white),
                                     ),
                                   ),
                                 ],
