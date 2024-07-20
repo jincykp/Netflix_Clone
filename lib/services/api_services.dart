@@ -139,4 +139,17 @@ class ApiServices {
     }
     throw Exception("Failed to load movie details ");
   }
+
+  Future<MovieRecommendationModel> getMovieRecommendations(int movieId) async {
+    endPoint = "movie/$movieId/recommendations";
+    final url = "$baseUrl$endPoint$key";
+    print("recommendations url =$url");
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      log('search success');
+      return MovieRecommendationModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception("Failed to load more like this ");
+  }
 }
