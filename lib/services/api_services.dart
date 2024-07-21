@@ -6,6 +6,7 @@ import 'package:netflix_clone_s/models/movie_detailed_model.dart';
 import 'package:netflix_clone_s/models/movie_recommendation_model.dart';
 import 'package:netflix_clone_s/models/nowPlaying_model.dart';
 import 'package:netflix_clone_s/models/search_model.dart';
+import 'package:netflix_clone_s/models/trending_movie_model.dart';
 import 'package:netflix_clone_s/models/tvseries_model.dart';
 import 'package:netflix_clone_s/models/upcoming_model.dart';
 import 'package:http/http.dart' as http;
@@ -152,5 +153,16 @@ class ApiServices {
       return MovieRecommendationModel.fromJson(jsonDecode(response.body));
     }
     throw Exception("Failed to load more like this ");
+  }
+
+  Future<TrendingMovieModel> getTrending(String time) async {
+    endPoint = "trending/movie/$time";
+    final url = "$baseUrl$endPoint$key";
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      log("success8");
+      return TrendingMovieModel.fromJson(jsonDecode(response.body));
+    }
+    throw Exception("Failed to load popular movies search");
   }
 }

@@ -40,7 +40,7 @@ class _BottomScreenState extends State<BottomScreen> {
             ),
           ),
           body: const TabBarView(
-            children: [HomeScreen(), SearchScreen(), MoreScreen()],
+            children: [HomeScreen(), SearchScreen(), HotandNew()],
           )),
     );
   }
