@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_s/commom/utils.dart';
 import 'package:netflix_clone_s/models/movie_detailed_model.dart';
@@ -123,12 +124,67 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             ),
                           ],
                         ),
-                      )
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      FutureBuilder(
+                          future: movieRecommendations,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final movieee = snapshot.data;
+                              return movieee!.results.isEmpty
+                                  ? const SizedBox()
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text("More like this"),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        GridView.builder(
+                                          itemCount: movieee.results.length,
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            mainAxisSpacing: 15,
+                                            crossAxisSpacing: 5,
+                                            childAspectRatio: 1.5 / 2,
+                                          ),
+                                          itemBuilder: (context, index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MovieDetailScreen(
+                                                                movieId: movieee
+                                                                    .results[
+                                                                        index]
+                                                                    .id)));
+                                              },
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "https://image.tmdb.org/t/p/w500$imageUrl${movieee.results[index].posterPath}",
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      ],
+                                    );
+                            }
+                            return const Text('something went wrong');
+                          })
                     ],
                   ),
                 );
               } else {
-                return const SizedBox();
+                return const Text("error ");
               }
             });
       }),

@@ -111,6 +111,7 @@ class ApiServices {
       try {
         String endUrl = 'movie/popular';
         final url = '$baseUrl$endUrl$key';
+        print("pop url=$url");
         final response = await http.get(Uri.parse(url));
         log(response.statusCode.toString());
         if (response.statusCode == 200) {

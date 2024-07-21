@@ -3,6 +3,8 @@ import 'package:netflix_clone_s/commom/utils.dart';
 import 'package:netflix_clone_s/models/nowPlaying_model.dart';
 import 'package:netflix_clone_s/models/tvseries_model.dart';
 import 'package:netflix_clone_s/models/upcoming_model.dart';
+import 'package:netflix_clone_s/screens/movie_detail_screen.dart';
+import 'package:netflix_clone_s/screens/search_screen.dart';
 import 'package:netflix_clone_s/services/api_services.dart';
 import 'package:netflix_clone_s/widgets/carousal.dart';
 import 'package:netflix_clone_s/widgets/nowplaying_card.dart';
@@ -42,7 +44,12 @@ class HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SearchScreen()));
+                },
                 child: const Icon(
                   Icons.search,
                   color: Colors.white,

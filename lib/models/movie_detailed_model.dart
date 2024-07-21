@@ -3,7 +3,7 @@ import 'dart:convert';
 class MovieDetailedModel {
   bool adult;
   String backdropPath;
-  BelongsToCollection belongsToCollection;
+  dynamic belongsToCollection;
   int budget;
   List<Genre> genres;
   String homepage;
@@ -60,7 +60,7 @@ class MovieDetailedModel {
   MovieDetailedModel copyWith({
     bool? adult,
     String? backdropPath,
-    BelongsToCollection? belongsToCollection,
+    dynamic belongsToCollection,
     int? budget,
     List<Genre>? genres,
     String? homepage,
@@ -123,8 +123,7 @@ class MovieDetailedModel {
       MovieDetailedModel(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
-        belongsToCollection:
-            BelongsToCollection.fromJson(json["belongs_to_collection"]),
+        belongsToCollection: json["belongs_to_collection"],
         budget: json["budget"],
         genres: List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
         homepage: json["homepage"],
@@ -158,7 +157,7 @@ class MovieDetailedModel {
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "belongs_to_collection": belongsToCollection.toJson(),
+        "belongs_to_collection": belongsToCollection,
         "budget": budget,
         "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
         "homepage": homepage,
@@ -186,53 +185,6 @@ class MovieDetailedModel {
         "video": video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
-      };
-}
-
-class BelongsToCollection {
-  int id;
-  String name;
-  String posterPath;
-  String backdropPath;
-
-  BelongsToCollection({
-    required this.id,
-    required this.name,
-    required this.posterPath,
-    required this.backdropPath,
-  });
-
-  BelongsToCollection copyWith({
-    int? id,
-    String? name,
-    String? posterPath,
-    String? backdropPath,
-  }) =>
-      BelongsToCollection(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        posterPath: posterPath ?? this.posterPath,
-        backdropPath: backdropPath ?? this.backdropPath,
-      );
-
-  factory BelongsToCollection.fromRawJson(String str) =>
-      BelongsToCollection.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory BelongsToCollection.fromJson(Map<String, dynamic> json) =>
-      BelongsToCollection(
-        id: json["id"],
-        name: json["name"],
-        posterPath: json["poster_path"],
-        backdropPath: json["backdrop_path"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "poster_path": posterPath,
-        "backdrop_path": backdropPath,
       };
 }
 
@@ -271,7 +223,7 @@ class Genre {
 
 class ProductionCompany {
   int id;
-  String logoPath;
+  String? logoPath;
   String name;
   String originCountry;
 

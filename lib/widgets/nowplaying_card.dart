@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_s/models/nowPlaying_model.dart';
+import 'package:netflix_clone_s/screens/movie_detail_screen.dart';
 
 class NowPlayingCard extends StatelessWidget {
   final Future<NowPlayingMovieModel> nowPlayingFuture;
@@ -38,20 +39,29 @@ class NowPlayingCard extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image.network(
-                        "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(
-                            Icons.broken_image,
-                            color: Colors.white,
-                          );
-                        },
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MovieDetailScreen(
+                                    movieId: data[index].id)));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image.network(
+                          "https://image.tmdb.org/t/p/w500${data[index].posterPath}",
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(
+                              Icons.broken_image,
+                              color: Colors.white,
+                            );
+                          },
+                        ),
                       ),
                     );
                   },
