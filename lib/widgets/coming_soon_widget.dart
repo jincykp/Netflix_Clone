@@ -1,20 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class ComeingSoonWidget extends StatelessWidget {
+class ComingSoonWidget extends StatelessWidget {
   final String image;
   final String overView;
   final String logo;
   final String month;
   final String day;
 
-  const ComeingSoonWidget(
-      {super.key,
-      required this.image,
-      required this.overView,
-      required this.logo,
-      required this.month,
-      required this.day});
+  const ComingSoonWidget({
+    super.key,
+    required this.image,
+    required this.overView,
+    required this.logo,
+    required this.month,
+    required this.day,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,6 @@ class ComeingSoonWidget extends StatelessWidget {
     return SizedBox(
       width: size.width,
       child: Row(
-        // mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,10 +35,16 @@ class ComeingSoonWidget extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   month,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 Text(
                   day,
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(width: 10),
               ],
@@ -52,12 +58,15 @@ class ComeingSoonWidget extends StatelessWidget {
                 imageUrl: image,
                 width: size.width * 0.7,
                 alignment: Alignment.topLeft,
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
               ),
               const SizedBox(height: 20),
               SizedBox(
                 width: size.width * 0.8,
                 child: Row(
-                  //  mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(
                       width: size.width * 0.3,
@@ -65,11 +74,12 @@ class ComeingSoonWidget extends StatelessWidget {
                       child: CachedNetworkImage(
                         imageUrl: logo,
                         alignment: Alignment.centerLeft,
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
-                    // const SizedBox(
-                    //   width: 50,
-                    // ),
                     const Spacer(),
                     const Column(
                       mainAxisSize: MainAxisSize.min,
@@ -79,13 +89,11 @@ class ComeingSoonWidget extends StatelessWidget {
                           size: 24,
                           color: Colors.white,
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        SizedBox(height: 5),
                         Text(
                           "Remind me",
-                          style: TextStyle(fontSize: 10),
-                        )
+                          style: TextStyle(fontSize: 10, color: Colors.white),
+                        ),
                       ],
                     ),
                     const SizedBox(width: 30),
@@ -97,32 +105,29 @@ class ComeingSoonWidget extends StatelessWidget {
                           size: 24,
                           color: Colors.white,
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        SizedBox(height: 5),
                         Text(
                           "Info",
-                          style: TextStyle(fontSize: 10),
+                          style: TextStyle(fontSize: 10, color: Colors.white),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 20,
-                    )
+                    const SizedBox(width: 20),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Comeing on $month $day",
+                    "Coming on $month /$day",
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 17),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
@@ -132,20 +137,22 @@ class ComeingSoonWidget extends StatelessWidget {
                       maxLines: 4,
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  )
+                  const SizedBox(height: 20),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 }
+
+
+
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:flutter/material.dart';
 

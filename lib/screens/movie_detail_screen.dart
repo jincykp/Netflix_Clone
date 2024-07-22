@@ -52,7 +52,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                      "https://image.tmdb.org/t/p/w500$imageUrl${movie!.posterPath}",
+                                      "https://image.tmdb.org/t/p/w500$imageUrl${movie.posterPath}",
                                     ),
                                     fit: BoxFit.cover)),
                             child: SafeArea(
@@ -139,7 +139,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text("More like this"),
+                                        const Text(
+                                          "More like this",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
                                         const SizedBox(
                                           height: 20,
                                         ),
